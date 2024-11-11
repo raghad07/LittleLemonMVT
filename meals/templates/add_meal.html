@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Meal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light background color */
+            color: #333; /* Dark text color */
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4a90e2; /* Blue color for the heading */
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4CAF50; /* Green button */
+            color: white; /* White text on button */
+            border: none; /* No border */
+            padding: 10px 15px; /* Padding around text */
+            text-align: center; /* Centered text */
+            text-decoration: none; /* No underline */
+            display: inline-block; /* Inline block for proper spacing */
+            font-size: 16px; /* Larger font size */
+            margin-top: 10px; /* Margin above button */
+            cursor: pointer; /* Pointer cursor on hover */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        a {
+            color: #4a90e2; /* Link color */
+            text-decoration: none; /* No underline on link */
+        }
+        a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Add a New Meal</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Meal</button>
+    </form>
+    <a href="{% url 'meal_list' %}">Back to Meal List</a>
+</body>
+</html>

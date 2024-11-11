@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal List</title>
+    <style>
+        /* Add styles here */
+    </style>
+</head>
+<body>
+    <h1>Meal List</h1>
+    {% if meals %}
+        <ul>
+            {% for meal in meals %}
+                <li>
+                    <strong>{{ meal.name }}</strong> - {{ meal.description }} - ${{ meal.price }}
+                    <a href="{% url 'update_meal' meal.id %}">Edit</a>
+                    <a href="{% url 'delete_meal' meal.id %}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No meals available.</p>
+    {% endif %}
+    <a href="{% url 'add_meal' %}">Add a New Meal</a>
+</body>
+</html>
+confirm_delete_meal

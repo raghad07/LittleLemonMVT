@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50; /* Green color for the header */
+            text-align: center;
+        }
+        #order-form {
+            background-color: #fff; /* White background for the form */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 20px;
+            max-width: 400px; /* Maximum width of the form */
+            margin: 0 auto; /* Center the form */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        label {
+            display: block; /* Block display for labels */
+            margin-bottom: 8px; /* Space between label and input */
+        }
+        select, input[type="number"], button {
+            width: 100%; /* Full width for inputs */
+            padding: 10px; /* Padding for inputs */
+            margin-bottom: 15px; /* Space between inputs */
+            border: 1px solid #ccc; /* Light border for inputs */
+            border-radius: 4px; /* Rounded corners for inputs */
+            font-size: 16px; /* Larger font size for readability */
+        }
+        button {
+            background-color: #4CAF50; /* Green button */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Place Your Order</h1>
+<form method="POST" id="order-form">
+    {% csrf_token %}
+    <div>
+        <label for="meal">Select Meal:</label>
+        <select name="meal" id="meal" required>
+            <option value="">Choose a meal</option>
+            {% for meal in meals %}
+                <option value="{{ meal.id }}" data-price="{{ meal.price }}">{{ meal.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="meal_price">Meal Price:</label>
+        <input type="number" name="meal_price" id="meal_price" step="0.01" readonly>
+    </div>
+    <div>
+        <label for="meal_quantity">Quantity:</label>
+        <input type="number" name="meal_quantity" id="meal_quantity" min="1" value="1" required>
+    </div>
+    <button type="submit">Place Order</button>
+</form>
+
+<script>
+    document.getElementById('meal').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const price = selectedOption.getAttribute('data-price');
+        document.getElementById('meal_price').value = price;
+    });
+</script>
+
+</body>
+</html>

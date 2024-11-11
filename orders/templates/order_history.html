@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            color: #333; /* Dark text color */
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50; /* Green color for the header */
+            text-align: center;
+        }
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove padding */
+            max-width: 600px; /* Maximum width for the order history */
+            margin: 0 auto; /* Center the order history */
+        }
+        li {
+            background-color: #fff; /* White background for list items */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 15px; /* Padding inside list items */
+            margin-bottom: 10px; /* Space between list items */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        li ul {
+            margin-top: 10px; /* Space above nested list */
+            padding-left: 20px; /* Indentation for nested list */
+        }
+        li ul li {
+            background-color: #f9f9f9; /* Light gray background for nested items */
+            margin: 5px 0; /* Space between nested items */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Your Order History</h1>
+<ul>
+    {% for order_info in order_summary %}
+        <li>
+            Order ID: {{ order_info.order.id }} - Status: {{ order_info.order.order_status }} - Total: ${{ order_info.total_order_price }} - Date: {{ order_info.order.created_at }}
+            <ul>
+                {% for item in order_info.order.order_items.all %}
+                    <li>{{ item.meal.name }} ({{ item.quantity }}) - ${{ item.meal.price }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% empty %}
+        <li>No orders found.</li>
+    {% endfor %}
+</ul> 
+
+</body>
+</html>

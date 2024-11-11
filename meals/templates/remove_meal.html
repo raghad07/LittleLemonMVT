@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light background color */
+            color: #333; /* Dark text color */
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4a90e2; /* Blue color for the heading */
+        }
+        ul {
+            list-style-type: none; /* Remove bullet points from list */
+            padding: 0; /* Remove padding */
+        }
+        li {
+            margin-bottom: 10px; /* Space between list items */
+            background-color: #e0f7fa; /* Light blue background for list items */
+            padding: 10px; /* Padding around the list item */
+            border-radius: 5px; /* Rounded corners */
+            border: 1px solid #b2ebf2; /* Light blue border */
+            position: relative; /* Position for child elements */
+        }
+        a {
+            color: #4CAF50; /* Green link color for adding a new meal */
+            text-decoration: none; /* No underline on link */
+            display: inline-block; /* Make the link block-level */
+            margin-top: 15px; /* Margin above link */
+            padding: 10px; /* Padding around the link */
+            background-color: #dfffd5; /* Light green background */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+        a:hover {
+            background-color: #c8e6c9; /* Darker green on hover */
+            text-decoration: underline; /* Underline on hover */
+        }
+        .delete-link {
+            color: #e74c3c; /* Red color for delete link */
+            margin-left: 10px; /* Space between meal info and delete link */
+            text-decoration: none; /* No underline */
+            font-weight: bold; /* Bold text */
+        }
+        .delete-link:hover {
+            text-decoration: underline; /* Underline on hover for delete link */
+        }
+        p {
+            font-size: 18px; /* Slightly larger font size for the paragraph */
+        }
+    </style>
+</head>
+<body>
+    <h1>Meal List</h1>
+
+    {% if meals %}
+        <ul>
+            {% for meal in meals %}
+                <li>
+                    <strong>{{ meal.name }}</strong> - {{ meal.description }} - ${{ meal.price }}
+                    <a class="delete-link" href="{% url 'confirm_delete_meal' meal.id %}">Delete</a>  <!-- Link to confirm deletion -->
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No meals available.</p>
+    {% endif %}
+
+    <a href="{% url 'add_meal' %}">Add a New Meal</a>
+</body>
+</html>
